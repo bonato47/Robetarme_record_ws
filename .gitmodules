@@ -1,0 +1,3 @@
+[submodule "net-ft-ros"]
+	path = net-ft-ros
+	url = https://github.com/epfl-lasa/net-ft-ros.git
