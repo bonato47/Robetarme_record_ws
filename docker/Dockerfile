@@ -44,6 +44,9 @@ RUN sudo apt-get update && sudo apt-get install -y \
     ros-${ROS_DISTRO}-ros-controllers \
     ros-noetic-diagnostic-updater \
     ros-noetic-mavros* \
+    dbus-x11 \
+    libcanberra-gtk-module libcanberra-gtk3-module \
+    gnome-terminal \
     && sudo apt-get upgrade -y && sudo apt-get clean
 
 
@@ -58,10 +61,12 @@ RUN rm -rf /tmp/*
 # Install workspace
 WORKDIR /home/${USER}
 RUN git clone https://github.com/bonato47/robetarme_record_ws.git
+RUN cp -r robetarme_record_ws/* ros_ws
+RUN rm -rf robetarme_record_ws
 
 ### Add environement variables to bashrc
 WORKDIR /home/${USER}
-RUN rm ros_ws -r
+
 
 # Give bashrc back to user
 RUN sudo chown -R ${USER}:${HOST_GID} .bashrc
@@ -71,7 +76,7 @@ RUN if [ "${USE_SIMD}" = "ON" ] ; \
     then echo "export ENABLE_SIMD=ON" >> /home/${USER}/.bashrc ; fi
 
 ### Build ros workspace
-WORKDIR /home/${USER}/robetarme_record_ws
+WORKDIR /home/${USER}/ros_ws
 RUN source /opt/ros/noetic/setup.bash && rosdep install --from-paths src --ignore-src -r -y
 RUN pushd src/xsens_ros_mti_driver/lib/xspublic && make && popd
 RUN source /opt/ros/noetic/setup.bash  && catkin_make;
