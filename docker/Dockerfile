@@ -39,40 +39,29 @@ RUN sudo apt-get update && sudo apt-get install -y \
     less \
     alsa-utils \
     netbase \
+    ros-noetic-vrpn-client-ros \
     ros-${ROS_DISTRO}-ros-control \
     ros-${ROS_DISTRO}-ros-controllers \
+    ros-noetic-diagnostic-updater \
+    ros-noetic-mavros* \
     && sudo apt-get upgrade -y && sudo apt-get clean
 
-# Install gazebo (9 or 11 depending on distro)
-WORKDIR /home/${USER}
-RUN sudo apt-get update
-RUN if [ "$ROS_DISTRO" = "noetic" ] ; then sudo apt-get install -y gazebo11 ; fi
-RUN if [ "$ROS_DISTRO" = "melodic" ] ; then sudo apt-get install -y gazebo9 ; fi
-
-# Install trak_ik_lib
-RUN sudo apt install -y ros-${ROS_DISTRO}-trac-ik
 
 # Handle SIMD option
 RUN if [ "${USE_SIMD}" = "ON" ] ; \ 
     then export CMAKE_CXX_FLAGS="-march=native -faligned-new" ; fi
 
-
 # Remove temporari files
 RUN sudo ldconfig
 RUN rm -rf /tmp/*
 
-### Install IIWA ROS
-WORKDIR /home/${USER}/ros_ws/src
-RUN git clone https://github.com/epfl-lasa/iiwa_ros.git
-
-# Install iiwa_robetarme
+# Install workspace
 WORKDIR /home/${USER}
-RUN git clone https://github.com/bonato47/Robetarme_iiwa.git
-RUN cp -R Robetarme_iiwa/src/send_pos/ ros_ws/src/
-
+RUN git clone https://github.com/bonato47/robetarme_record_ws.git
 
 ### Add environement variables to bashrc
 WORKDIR /home/${USER}
+RUN rm ros_ws -r
 
 # Give bashrc back to user
 RUN sudo chown -R ${USER}:${HOST_GID} .bashrc
@@ -82,9 +71,10 @@ RUN if [ "${USE_SIMD}" = "ON" ] ; \
     then echo "export ENABLE_SIMD=ON" >> /home/${USER}/.bashrc ; fi
 
 ### Build ros workspace
-WORKDIR /home/${USER}/ros_ws
-RUN source /home/${USER}/.bashrc && rosdep install --from-paths src --ignore-src -r -y
-RUN source /home/${USER}/.bashrc && catkin_make;
+WORKDIR /home/${USER}/robetarme_record_ws
+RUN source /opt/ros/noetic/setup.bash && rosdep install --from-paths src --ignore-src -r -y
+RUN pushd src/xsens_ros_mti_driver/lib/xspublic && make && popd
+RUN source /opt/ros/noetic/setup.bash  && catkin_make;
 
 ### Final apt clean
 RUN sudo apt update && sudo apt upgrade && sudo apt clean

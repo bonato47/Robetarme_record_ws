@@ -1,5 +1,5 @@
 #!/bin/bash
-IMAGE_NAME="epfl-lasa/Robetarme_ws"
+IMAGE_NAME="epfl-lasa/robetarme_ws"
 CONTAINER_NAME="${IMAGE_NAME//[\/.]/-}"
 USERNAME="ros"
 MODE=()
@@ -85,6 +85,19 @@ if [ "${MODE}" != "connect" ]; then
 
     # Other
     FWD_ARGS+=("--privileged")
+    
+    #Add volume
+    
+    docker volume rm rosbag_folder
+    docker volume create --driver local \
+    --opt type="none" \
+    --opt device="${PWD}/../Data" \
+    --opt o="bind" \
+    "rosbag_folder"
+    
+    FWD_ARGS+=(--volume="rosbag_folder:/home/ros/robetarme_record_ws/Data:rw")
+
+    
 fi
 
 # Trick aica-docker into making a server on a host network container
