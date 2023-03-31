@@ -1,0 +1,7 @@
+<launch>
+    <arg name="name" default="noname"/>
+    <include file="$(find opti_track_ros_interface)/launch/vrpn_optitrack.launch" />
+    <include file="$(find xsens_mti_driver)/launch/xsens_mti_node.launch" />
+    <node pkg="rosbag" type="record" name="recorder" args="record -a -O $(find save_file)/data/$(arg name).bag"/>
+
+</launch>
