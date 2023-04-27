@@ -116,7 +116,7 @@ RUN rosdep update
 RUN source /opt/ros/noetic/setup.bash && rosdep install --from-paths src --ignore-src -r -y
 #RUN sudo chmod -R o+rw src/xsens_ros_mti_driver *
 #RUN pushd src/xsens_ros_mti_driver/lib/xspublic && make && popd
-#RUN rm src/xsens_ros_mti_driver -r
+RUN rm src/xsens_ros_mti_driver -r
 
 
 
