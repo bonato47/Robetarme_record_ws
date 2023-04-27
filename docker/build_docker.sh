@@ -72,5 +72,5 @@ BUILD_FLAGS+=(--build-arg HOST_GID=$(id -g))   # Pass the correct GID to avoid i
 BUILD_FLAGS+=(--ssh default="${SSH_AUTH_SOCK}")
 BUILD_FLAGS+=(--build-arg GIT_NAME=$(git config user.name))    # Pass git user info to be able to pull
 BUILD_FLAGS+=(--build-arg GIT_EMAIL=$(git config user.email))
-
+echo "${BUILD_FLAGS[@]}"
 DOCKER_BUILDKIT=1 docker build "${BUILD_FLAGS[@]}" .
