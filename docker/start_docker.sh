@@ -95,7 +95,7 @@ if [ "${MODE}" != "connect" ]; then
     --opt o="bind" \
     "rosbag_folder"
     
-    FWD_ARGS+=(--volume="rosbag_folder:/home/ros/robetarme_record_ws/Data:rw")
+    FWD_ARGS+=(--volume="rosbag_folder:/home/ros/ros_ws/Data:rw")
 
     
 fi
