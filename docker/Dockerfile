@@ -47,6 +47,10 @@ RUN sudo apt-get update && sudo apt-get install -y \
     dbus-x11 \
     libcanberra-gtk-module libcanberra-gtk3-module \
     gnome-terminal \
+    libspdlog-dev \
+    libbluetooth-dev \
+    qtbase5-dev \
+    qtconnectivity5-dev \
     && sudo apt-get upgrade -y && sudo apt-get clean
 
 
@@ -64,6 +68,10 @@ RUN git clone https://github.com/bonato47/robetarme_record_ws.git
 RUN cp -r robetarme_record_ws/* ros_ws
 RUN rm -rf robetarme_record_ws
 
+WORKDIR /home/${USER}/ros_ws/src
+RUN git clone --recurse-submodules https://bitbucket.org/lpresearch/openzenros.git
+
+
 ### Add environement variables to bashrc
 WORKDIR /home/${USER}
 
@@ -79,7 +87,7 @@ RUN if [ "${USE_SIMD}" = "ON" ] ; \
 WORKDIR /home/${USER}/ros_ws
 RUN source /opt/ros/noetic/setup.bash && rosdep install --from-paths src --ignore-src -r -y
 RUN pushd src/xsens_ros_mti_driver/lib/xspublic && make && popd
-RUN source /opt/ros/noetic/setup.bash  && catkin_make;
+#RUN source /opt/ros/noetic/setup.bash  && catkin_make -DZEN_BLUETOOTH=ON;
 
 ### Final apt clean
 RUN sudo apt update && sudo apt upgrade && sudo apt clean
