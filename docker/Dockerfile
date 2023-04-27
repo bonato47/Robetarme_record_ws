@@ -55,6 +55,7 @@ RUN sudo apt-get update && sudo apt-get install -y \
     silversearcher-ag \
     apt-transport-https \
     less \
+    nano \
     alsa-utils \
     netbase \
     ros-noetic-vrpn-client-ros \
@@ -88,7 +89,7 @@ RUN rm -rf /tmp/*
 
 # Install workspace
 WORKDIR /home/${USER}/ros_ws
-RUN git clone https://github.com/bonato47/robetarme_record_ws.git
+RUN git clone -b raspberry https://github.com/bonato47/robetarme_record_ws.git
 RUN cp -r robetarme_record_ws/* .
 RUN rm -rf robetarme_record_ws
 WORKDIR /home/${USER}/ros_ws/src
@@ -104,7 +105,7 @@ RUN sudo chown -R ${USER}:${HOST_GID} .bashrc
 RUN if [ "${USE_SIMD}" = "ON" ] ; \
     then echo "export ENABLE_SIMD=ON" >> /home/${USER}/.bashrc ; fi
 RUN sudo apt install bluez
-RUN sudo service dbus start
+#RUN sudo service dbus start
 RUN sudo service bluetooth start
 
 
