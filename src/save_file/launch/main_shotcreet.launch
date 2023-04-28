@@ -1,8 +1,0 @@
-<launch>
-    <arg name="name" default="noname"/>
-    <arg name="sensor1" default="LPMSB2-6C51F7"/>
-    <include file="$(find opti_track_ros_interface)/launch/vrpn_optitrack.launch"/>
-    <node pkg="openzen_sensor" type="openzen_sensor_node" name="openzen_sensor"/>
-    <node pkg="rosbag" type="record" name="recorder" args="record -a -O $(find save_file)/../../Data/$(arg name).bag"/>
-
-</launch>

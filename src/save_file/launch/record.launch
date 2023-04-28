@@ -1,0 +1,5 @@
+<launch>
+    <arg name="name" default="noname"/>
+    <node pkg="rosbag" type="record" name="recorder" args="record -a -O $(find save_file)/../../Data/$(arg name).bag"/>
+
+</launch>
