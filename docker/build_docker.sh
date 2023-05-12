@@ -66,7 +66,6 @@ if [[ "$(docker images -q ${BASE_IMAGE} 2> /dev/null)" != "" ]]; \
 fi
 
 # Setup build flags
-BUILD_FLAGS+=(--platform linux/arm64)
 BUILD_FLAGS+=(--build-arg ROS_DISTRO="${ROS_DISTRO}")
 BUILD_FLAGS+=(--build-arg USE_SIMD=${USE_SIMD})
 BUILD_FLAGS+=(-t "${IMAGE_NAME}")
