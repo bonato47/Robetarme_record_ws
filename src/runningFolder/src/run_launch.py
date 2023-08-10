@@ -1,23 +1,26 @@
 #!/usr/bin/env python
 
 import sys
+import rospy
 import signal
 import subprocess
-import keyboard
 
 def run_my_launch_file(parameter_value):
     try:
         # Replace with the appropriate roslaunch command
-        subprocess.run(["roslaunch", "runningFolder", "save_bag.launch", f"name:={parameter_value}"])
+        subprocess.run(["roslaunch", "runningfolder", "save_bag.launch", f"name:={parameter_value}"])
     except KeyboardInterrupt:
         pass
 def run_my_python_code():
     try:
         # Replace with the command to run your other Python code
-        subprocess.run(["python", "path_to_your_script.py"])
+        print("run code")
+        subprocess.run(["python3", "test.py"])
     except KeyboardInterrupt:
+        print("run code")
+
         pass
-    
+
 def space_callback(event):
     print("Hello")
 
@@ -29,14 +32,18 @@ def main():
     parameter_value = sys.argv[1]
 
     run_my_launch_file(parameter_value)
-    
+
     # Set up Ctrl+C handler to run roslaunch
     signal.signal(signal.SIGINT, run_my_python_code)
 
-    # Set up space bar callback
-    keyboard.add_hotkey('space', space_callback)
+    rospy.init_node('my_ros_node', anonymous=True)
+    rate = rospy.Rate(1)  # 1 Hz
 
-    signal.pause()
+    while not rospy.is_shutdown():
+        space_key = input("Press Enter to print 'Hello', or Ctrl+C to quit: ")
+        if space_key == '':
+            space_callback()
+        rate.sleep()
 
 if __name__ == '__main__':
     main()

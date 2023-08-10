@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(save_file)
+project(runningfolder)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -212,7 +212,5 @@ include_directories(
 #include/qpOASES/qpOASES.cpp
 
 
-add_executable(save_topic src/save_topic.cpp)
-target_link_libraries(save_topic ${catkin_LIBRARIES})
 
 
