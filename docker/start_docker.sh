@@ -1,5 +1,5 @@
 #!/bin/bash
-IMAGE_NAME="robetarme_ws"
+IMAGE_NAME="tbonato47/robetarme_ws"
 CONTAINER_NAME="${IMAGE_NAME//[\/.]/-}"
 USERNAME="ros"
 MODE=()
@@ -96,6 +96,15 @@ if [ "${MODE}" != "connect" ]; then
     "rosbag_folder"
     
     FWD_ARGS+=(--volume="rosbag_folder:/home/ros/robetarme_record_ws/Data:rw")
+    
+    docker volume rm runningFolder
+    docker volume create --driver local \
+    --opt type="none" \
+    --opt device="${PWD}/../src/runningFolder" \
+    --opt o="bind" \
+    "runningFolder"
+    
+    FWD_ARGS+=(--volume="runningFolder:/home/ros/robetarme_record_ws/src/runningFolder:rw")
 
     
 fi

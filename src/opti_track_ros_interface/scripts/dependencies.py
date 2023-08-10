@@ -1,5 +1,4 @@
 import rospy
-
 from threading import Thread
 from enum import Enum
 from colorama import Fore, Style, Back
@@ -14,8 +13,8 @@ from UDPSocket import UDPSocket
 NODE_FREQUENCY = 50.0
 
 # Socket programming
-UDP_IPS = ("10.42.0.1", "10.42.0.7")
-UDP_PORTS = (20004, 20013)
+UDP_IPS = ("192.168.7.15", "192.168.7.55")
+UDP_PORTS = (20016, 20013)
 UDP_PACKET_BUFFER_SIZE = 1024
 UDP_UPDATE_RATE = 1.0 / 50.0
 UDP_LOG_ENABLED = False

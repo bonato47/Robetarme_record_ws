@@ -61,12 +61,13 @@ def main():
     rate = rospy.Rate(NODE_FREQUENCY)
 
     # read ROS parameters
-    socket_role = rospy.get_param("~socket_role")
-    udp_ip = rospy.get_param("~udp_ip")
-    udp_port = rospy.get_param("~udp_port")
-    udp_buffer_size = rospy.get_param("~udp_buffer_size")
-    udp_update_rate = rospy.get_param("~udp_update_rate")
-    is_print_log_enabled = rospy.get_param("~print_log")
+    socket_role = "server"
+    udp_ip = "192.168.7.15"
+    udp_port = 20016
+    udp_buffer_size = 1024
+    udp_update_rate = 0.05
+    is_print_log_enabled = True
+
 
     print(Fore.YELLOW)
     print("++ Experimental parameters:")
@@ -86,11 +87,11 @@ def main():
     thrd_udp_socket_server.start()
 
     # create the udp socket thread (client for sending data)
-    q_received_udp_packet_client = queue.Queue()
-    thrd_udp_socket_client = UDPSocket("CLIENT", UDP_IPS[1], UDP_PORTS[1], UDP_PACKET_BUFFER_SIZE,
-                                       UDP_UPDATE_RATE, UDP_LOG_ENABLED, q_received_udp_packet_client)
-    thrd_udp_socket_client.connect()
-    thrd_udp_socket_client.start()
+    # q_received_udp_packet_client = queue.Queue()
+    # thrd_udp_socket_client = UDPSocket("CLIENT", UDP_IPS[1], UDP_PORTS[1], UDP_PACKET_BUFFER_SIZE,
+    #                                    UDP_UPDATE_RATE, UDP_LOG_ENABLED, q_received_udp_packet_client)
+    # thrd_udp_socket_client.connect()
+    # thrd_udp_socket_client.start()
 
 
     print(Fore.BLACK + Back.WHITE)
@@ -109,16 +110,17 @@ def main():
     print(f">> The main loop is started!")
     print(Style.RESET_ALL)    
 
-    for i in range(5):
-        thrd_udp_socket_client.send_udp_packet(SERVER_MSGS[1])
+    # for i in range(5):
+    #     thrd_udp_socket_client.send_udp_packet(SERVER_MSGS[1])
 
     while not rospy.is_shutdown():
         if (not q_received_udp_packet_server.empty()):
             received_packet = q_received_udp_packet_server.get()
-           
+            print(received_packet)
+            
             msg = parse_ros_msg(received_packet)
             if (msg):
-                # print("sss")
+                
                 pub_opti_track.publish(msg)
         
         rate.sleep()
