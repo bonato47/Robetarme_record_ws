@@ -6,21 +6,22 @@ import sys
 
 def launch_my_launch_file(parameter_value):
     try:
-        subprocess.run(["roslaunch", "runningfolder", "save_bag.launch", f"name:={parameter_value}"])
+        subprocess.run(["roslaunch", "runningfolder", "vrpn_optitrack.launch"])
     except KeyboardInterrupt:
         pass
 
-def space_callback():
-    print("Space bar pressed. Hello!")
-    
+def space_callback(parameter_value):
+        print("run code")
+        subprocess.run(["python3", "targetToCsv.py", parameter_value])    
+        print("code done")
+        
 def run_my_python_code():
     try:
         # Replace with the command to run your other Python code
-        print("run code")
-        subprocess.run(["python3", "test.py"])
+
         pass
     except KeyboardInterrupt:
-        print("run code")
+        print("exit")
 
         pass
 
@@ -38,20 +39,21 @@ def main():
     input()
 
     # Launch the ROS launch file
-    launch_process = subprocess.Popen(["roslaunch", "runningfolder", "save_bag.launch", f"name:={parameter_value}"])
+    launch_process = subprocess.Popen(["roslaunch", "runningfolder", "vrpn_optitrack.launch"])
 
     print("Press 'Space' to print 'Hello' or Ctrl+C to exit.")
     try:
         while True:
             key = input()
             if key == ' ':
-                space_callback()
+                space_callback(parameter_value)
+                launch_process.terminate()
+
     except KeyboardInterrupt:
         pass
     finally:
         # Terminate the launch process when exiting
         launch_process.terminate()
-        run_my_python_code()
 
 if __name__ == '__main__':
     main()
