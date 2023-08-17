@@ -6,10 +6,10 @@ import sys
 class PoseStampedSubscriber:
     def __init__(self,nameTarget):
         # Initialize the ROS node
-        rospy.init_node('pose_stamped_subscriber', anonymous=True)
+        rospy.init_node('target_to_csv', anonymous=True)
 
         # Subscribe to the topic /vrpn/target1 with message type PoseStamped
-        self.subscriber = rospy.Subscriber("/vrpn_client_node/testimu/pose", PoseStamped, self.pose_stamped_callback)
+        self.subscriber = rospy.Subscriber("/vrpn_client_node/target/pose", PoseStamped, self.pose_stamped_callback)
 
         self.received_poses = []
         self.nameTarget = nameTarget
@@ -36,14 +36,22 @@ class PoseStampedSubscriber:
         mean_position = [sum(p.position.x for p in poses) / num_poses,
                          sum(p.position.y for p in poses) / num_poses,
                          sum(p.position.z for p in poses) / num_poses]
-
-        mean_orientation = poses[0].orientation  # You might want to calculate the mean orientation as well
+        
+        mean_orientation = [sum(p.orientation.x for p in poses) / num_poses,
+                            sum(p.orientation.y for p in poses) / num_poses,
+                            sum(p.orientation.z for p in poses) / num_poses,
+                            sum(p.orientation.w for p in poses) / num_poses]
 
         mean_pose = PoseStamped()
         mean_pose.pose.position.x = mean_position[0]
         mean_pose.pose.position.y = mean_position[1]
         mean_pose.pose.position.z = mean_position[2]
-        mean_pose.pose.orientation = mean_orientation
+
+        mean_pose.pose.orientation.x = mean_orientation[0]
+        mean_pose.pose.orientation.y = mean_orientation[1]
+        mean_pose.pose.orientation.z = mean_orientation[2]
+        mean_pose.pose.orientation.w = mean_orientation[3]
+
 
         return mean_pose
 
@@ -77,6 +85,7 @@ def main():
     
     pose_stamped_subscriber = PoseStampedSubscriber(parameter_name)
     pose_stamped_subscriber.run()
+    return
 
 if __name__ == '__main__':
     
