@@ -169,7 +169,7 @@ class Vec4d:
 
 def bagToCsv(Namefile,task = 0):
 
-    bag = rosbag.Bag(Namefile+".bag")
+    bag = rosbag.Bag("../data/bag/" + Namefile+".bag")
     _FilterAcc  = Vec3d("_FilterAcc")
     _FilterQuat  = Vec4d("_FilterQuat")
     _dataLinearAcc = Vec3d("_dataLinearAcc")
@@ -266,7 +266,7 @@ def bagToCsv(Namefile,task = 0):
         All_data_final["_fttorque_y"] = interp_2(timeFT,_ftforce.y,time_interp)
         All_data_final["_fttorque_z"] = interp_2(timeFT,_ftforce.z,time_interp)
 
-    All_data_final.to_csv(Namefile+".csv")
+    All_data_final.to_csv("../data/csv/" + Namefile+".csv")
 
 
 

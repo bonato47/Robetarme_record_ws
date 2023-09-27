@@ -47,7 +47,9 @@ RUN git config --global user.email "${GIT_EMAIL}"
 RUN sudo apt update
 RUN if [ "${ROS_DISTRO}" == "noetic" ] ; \
     then sudo apt install python-is-python3 ; fi
-
+RUN sudo apt install pip -y
+RUN pip install scipy  \
+    matplotlib
 
 ### Add a few tools
 RUN sudo apt-get update && sudo apt-get install -y \
@@ -92,8 +94,7 @@ WORKDIR /home/${USER}/ros_ws
 RUN git clone -b raspberry https://github.com/bonato47/robetarme_record_ws.git
 RUN cp -r robetarme_record_ws/* .
 RUN rm -rf robetarme_record_ws
-WORKDIR /home/${USER}/ros_ws/src
-RUN git clone --recurse-submodules https://bitbucket.org/lpresearch/openzenros.git
+
 ### Add environement variables to bashrc
 WORKDIR /home/${USER}
 
@@ -114,14 +115,10 @@ USER ${USER}
 WORKDIR /home/${USER}/ros_ws
 RUN rosdep update
 RUN source /opt/ros/noetic/setup.bash && rosdep install --from-paths src --ignore-src -r -y
-#RUN sudo chmod -R o+rw src/xsens_ros_mti_driver *
-#RUN pushd src/xsens_ros_mti_driver/lib/xspublic && make && popd
-RUN rm src/xsens_ros_mti_driver -r
 
 
+RUN source /opt/ros/noetic/setup.bash && catkin_make
 
-RUN source /opt/ros/noetic/setup.bash && catkin_make -DZEN_BLUETOOTH=ON || echo "fail_catkin";
-
-#RUN source devel/setup.bash
+RUN source devel/setup.bash
 ### Final apt clean
 RUN sudo apt update && sudo apt upgrade && sudo apt clean

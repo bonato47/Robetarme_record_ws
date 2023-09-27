@@ -56,7 +56,7 @@ class PoseStampedSubscriber:
         return mean_pose
 
     def save_mean_pose_to_csv(self, mean_pose):
-        nameCSV = "../targets/" + self.nameTarget + ".csv"
+        nameCSV = "../data/targets/" + self.nameTarget + ".csv"
         with open(nameCSV, 'w') as csvfile:
             fieldnames = ['Position_X', 'Position_Y', 'Position_Z', 'Orientation_X', 'Orientation_Y', 'Orientation_Z', 'Orientation_W']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)

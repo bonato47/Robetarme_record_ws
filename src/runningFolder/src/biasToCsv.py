@@ -51,7 +51,7 @@ class FtStampedSubscriber:
         return mean_ft
 
     def save_mean_ft_to_csv(self, mean_ft):
-        nameCSV = "../bias/bias_" + self.nameTarget + ".csv"
+        nameCSV = "../data/bias/bias_" + self.nameTarget + ".csv"
         with open(nameCSV, 'w') as csvfile:
             fieldnames = ['Force_X', 'Force_Y', 'Force_Z', 'Torque_X', 'Torque_Y', 'Torque_Z']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
