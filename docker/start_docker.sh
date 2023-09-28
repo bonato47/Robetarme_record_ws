@@ -88,15 +88,6 @@ if [ "${MODE}" != "connect" ]; then
     
     #Add volume
     
-    docker volume rm rosbag_folder
-    docker volume create --driver local \
-    --opt type="none" \
-    --opt device="${PWD}/../data" \
-    --opt o="bind" \
-    "rosbag_folder"
-    
-    FWD_ARGS+=(--volume="rosbag_folder:/home/ros/ros_ws/data:rw")
-    
     docker volume rm runningFolder
     docker volume create --driver local \
     --opt type="none" \

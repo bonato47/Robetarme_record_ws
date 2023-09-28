@@ -49,7 +49,8 @@ RUN if [ "${ROS_DISTRO}" == "noetic" ] ; \
     then sudo apt install python-is-python3 ; fi
 RUN sudo apt install pip -y
 RUN pip install scipy  \
-    matplotlib
+    matplotlib \
+    pandas \
 
 ### Add a few tools
 RUN sudo apt-get update && sudo apt-get install -y \
@@ -119,6 +120,6 @@ RUN source /opt/ros/noetic/setup.bash && rosdep install --from-paths src --ignor
 
 RUN source /opt/ros/noetic/setup.bash && catkin_make
 
-RUN source devel/setup.bash
+RUN echo "source devel/setup.bash" >> ~/.bashrc
 ### Final apt clean
 RUN sudo apt update && sudo apt upgrade && sudo apt clean
