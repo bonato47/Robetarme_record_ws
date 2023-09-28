@@ -292,8 +292,4 @@ def parser():
     args = parser.parse_args()
     return args
 
-if __name__ == "__main__":
-    argv = parser()
 
-    bagToCsv(argv.name ,argv.task)
-    

@@ -321,21 +321,26 @@ def transform_data(dataInitial,Name,Disp,task):
     data_df_T.to_csv(nameFinal, index= None )
     return data_df_T    
     
-
-if __name__ == "__main__":
-    argv = parser()
-
-    bagToCsv(argv.name ,argv.task)
-    file_name = "../data/csv/" + argv.name + ".csv"
+def mainTransform(name):
+    task = 1
+    if not (name.find("shot") == -1):
+        task = 0
+    
+    bagToCsv(name , task)
+    file_name = "../data/csv/" + name + ".csv"
     data = pd.read_csv(file_name, index_col=False)
     file_name_short= file_name.replace("../data/csv/", "")
 
     print(file_name_short)
     displacementFromTarget = [1.25,0,0.7] 
 
-    data_final= transform_data(data,file_name_short,displacementFromTarget,0)
-    plot_quaternion(data_final,argv.name)
-    plot_angularVelocity(data_final,argv.name)
-    plot_position(data_final,argv.name)
-    plot_euler(data_final,argv.name)
+    data_final= transform_data(data,file_name_short,displacementFromTarget,task)
+    plot_quaternion(data_final,name)
+    plot_angularVelocity(data_final,name)
+    plot_position(data_final,name)
+    plot_euler(data_final,name)
     print(data_final)
+
+if __name__ == '__main__':
+    parameter_value = sys.argv[1]
+    mainTransform(parameter_value)

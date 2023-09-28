@@ -5,6 +5,9 @@ import signal
 import sys
 import time
 
+from transformCsv import mainTransform
+
+
 def main():
     
     if len(sys.argv) != 2:
@@ -34,8 +37,8 @@ def main():
     l3.terminate()
     time.sleep(4)
     print("exit well done running plot, please wait boss")
-    
+    mainTransform(parameter_value)
 
-   
+    
 if __name__ == '__main__':
     main()
