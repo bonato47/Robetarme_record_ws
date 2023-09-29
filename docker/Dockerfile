@@ -48,9 +48,9 @@ RUN sudo apt update
 RUN if [ "${ROS_DISTRO}" == "noetic" ] ; \
     then sudo apt install python-is-python3 ; fi
 RUN sudo apt install pip -y
-RUN pip install scipy  \
-    matplotlib \
-    pandas \
+RUN pip install scipy  
+RUN pip install matplotlib 
+RUN pip install pandas 
 
 ### Add a few tools
 RUN sudo apt-get update && sudo apt-get install -y \

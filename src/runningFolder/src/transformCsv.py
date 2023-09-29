@@ -325,20 +325,25 @@ def mainTransform(name):
     task = 1
     if not (name.find("shot") == -1):
         task = 0
-    
+    print(name)
     bagToCsv(name , task)
+    print('bag to csv done')
     file_name = "../data/csv/" + name + ".csv"
     data = pd.read_csv(file_name, index_col=False)
     file_name_short= file_name.replace("../data/csv/", "")
 
-    print(file_name_short)
+
     displacementFromTarget = [1.25,0,0.7] 
 
     data_final= transform_data(data,file_name_short,displacementFromTarget,task)
+    print('transform done, wait for plot')
     plot_quaternion(data_final,name)
     plot_angularVelocity(data_final,name)
     plot_position(data_final,name)
     plot_euler(data_final,name)
+    plot_force(data_final,name)
+    plot_torque(data_final,name)
+    print('plot saved')
     print(data_final)
 
 if __name__ == '__main__':

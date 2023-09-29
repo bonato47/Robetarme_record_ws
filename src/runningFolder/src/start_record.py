@@ -15,16 +15,18 @@ def main():
         return
 
     parameter_value = sys.argv[1]
+    task =1 
+    if not (parameter_value.find("shot") == -1):
+        task = 0
     # # Set up Ctrl+C handler to exit the launch process
     # signal.signal(signal.SIGINT, lambda sig, frame: run_my_python_code())
-    l1 = subprocess.Popen(["roslaunch", "runningfolder", "vrpn_optitrack.launch"])
+    if task == 1:
+        l1 = subprocess.Popen(["roslaunch", "runningfolder", "main_surf_and_shot.launch"])
+    else:
+        l1 = subprocess.Popen(["roslaunch", "runningfolder", "vrpn_optitrack.launch"])
     # Add a delay of 3 seconds
-    time.sleep(2)
-    # Launch the second ROS launch file
-    l2 = subprocess.Popen(["roslaunch", "netft_rdt_driver", "ft_sensor.launch"])
-    
 
-    time.sleep(4)
+    time.sleep(6)
     print("Press 'Enter' to start record the ROS launch file.")
     input()
 
@@ -33,9 +35,9 @@ def main():
     print("Press 'Enter' to stop record and plot")
     input()
     l1.terminate()
-    l2.terminate()    
+
     l3.terminate()
-    time.sleep(4)
+    time.sleep(8)
     print("exit well done running plot, please wait boss")
     mainTransform(parameter_value)
 

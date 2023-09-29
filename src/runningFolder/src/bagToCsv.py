@@ -168,8 +168,10 @@ class Vec4d:
         
 
 def bagToCsv(Namefile,task = 0):
-
-    bag = rosbag.Bag("../data/bag/" + Namefile+".bag")
+    import pathlib
+    file_folder = str(pathlib.Path(__file__).parent.resolve())
+    #print(os.getcwd())
+    bag = rosbag.Bag(file_folder + "/../data/bag/" + Namefile + ".bag")
     _FilterAcc  = Vec3d("_FilterAcc")
     _FilterQuat  = Vec4d("_FilterQuat")
     _dataLinearAcc = Vec3d("_dataLinearAcc")
