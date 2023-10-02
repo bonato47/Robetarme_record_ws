@@ -31,7 +31,10 @@ def main():
     input()
 
     # Launch the ROS launch file
-    l3 =subprocess.Popen(["roslaunch", "runningfolder", "save_bag.launch", f"name:={parameter_value}"])
+    if task == 1:
+    	l3 =subprocess.Popen(["roslaunch", "runningfolder", "save_bag_surface.launch", f"name:={parameter_value}"])
+    else:
+	    l3 = subprocess.Popen(["roslaunch", "runningfolder", "save_bag_shotcrete.launch", f"name:={parameter_value}"])
     print("Press 'Enter' to stop record and plot")
     input()
     l1.terminate()

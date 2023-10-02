@@ -1,0 +1,4 @@
+<launch>
+    <arg name="name" default="noname"/>
+    <node pkg="rosbag" type="record" name="recorder" output="screen" args="record -O  $(find runningfolder)/data/bag/$(arg name).bag /vrpn_client_node/surface/pose /ft_sensor/netft_data "/>
+</launch>
