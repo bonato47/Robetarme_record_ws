@@ -317,7 +317,7 @@ def transform_data(dataInitial,Name,Disp,task):
     #compute target pos
     data_df_T = add_target_dataframe(Name, data_df_T, Disp)
 
-    nameFinal = "../data/csv_transform/" + Name
+    nameFinal = "../data/csv_transform/" + Name + "_transform"
     data_df_T.to_csv(nameFinal, index= None )
     return data_df_T    
     

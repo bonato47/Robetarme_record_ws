@@ -54,7 +54,7 @@ def main():
     # Launch the ROS launch file
     launch_my_launch_file(parameter_value)
     print("Press 'Enter' to save KUL stuff and calib  or Ctrl+C to exit.")
-
+    input()
     space_callback_housing(parameter_value+"_housing")
 
     i = 0

@@ -85,6 +85,6 @@ def main(param):
     return
 
 if __name__ == '__main__':
-    
-    main()
+    parameter_value = sys.argv[1]
+    main(parameter_value)
 

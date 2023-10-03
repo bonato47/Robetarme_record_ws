@@ -77,7 +77,7 @@ class PoseStampedSubscriber:
         rospy.spin()
 def main(param):
     
-
+ 
     parameter_name = param
     
     pose_stamped_subscriber = PoseStampedSubscriber(parameter_name)
@@ -85,6 +85,6 @@ def main(param):
     return
 
 if __name__ == '__main__':
-    
-    main()
+    parameter_value = sys.argv[1]
+    main(parameter_value)
 
