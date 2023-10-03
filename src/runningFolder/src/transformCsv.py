@@ -343,6 +343,7 @@ def mainTransform(name):
     plot_euler(data_final,name)
     plot_force(data_final,name)
     plot_torque(data_final,name)
+    #plot_path(data_final,name)
     print('plot saved')
     print(data_final)
 

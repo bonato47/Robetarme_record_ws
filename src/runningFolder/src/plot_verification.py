@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def CheckNoEmpty(df,name):
     if name in df:
         return 0
     else:
-        print("no Data")
+        print("no Data" + str(name))
         return 1
 
 
@@ -324,25 +325,24 @@ def plot_torque(data,namefile) -> None :
 
 def plot_path(data,namefile) -> None :
 
-# Sample data
+    # Sample data
     z = data["posz"].values
 
     y = data["posy"].values
 
     # Create a color gradient from red to blue
-    colors = np.linspace(0, 1, len(z))
-    cmap = plt.get_cmap('coolwarm')
+    #colors = np.linspace(0, 1, len(z))
+    #cmap = plt.get_cmap('coolwarm')
 
     # Plot the scatter plot with changing colors
-    for i in range(len(x)):
-        plt.scatter(z[i], y[i], c=cmap(colors[i]), label=f'Data Point {i+1}')
+    for i in range(len(z)):
+        plt.scatter(z[i], y[i], c="red", label=f'Data Point {i+1}')
 
     # Add labels and a legend
     plt.xlabel('z-axis')
     plt.ylabel('Y-axis')
     plt.legend()
-    # Adjust layout to prevent overlapping titles
-    plt.tight_layout()
+ 
 
     # Display the plot
     plt.savefig("../data/plots/path_" + namefile)
