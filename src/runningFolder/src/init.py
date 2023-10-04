@@ -23,7 +23,8 @@ def launch_my_launch_file(parameter_value):
 def space_callback(parameter_value):
         print("saving target postition...")
         subprocess.run(["python3", "targetToCsv.py", parameter_value])    
-        print("target position saved")
+        print("target position saved press enter to save bias")
+        input()
         print("saving bias FT sensor...")
         subprocess.run(["python3", "biasToCsv.py", parameter_value])    
         print("bias FT saved")
@@ -47,9 +48,6 @@ def main():
     parameter_value = sys.argv[1]
     # # Set up Ctrl+C handler to exit the launch process
     # signal.signal(signal.SIGINT, lambda sig, frame: run_my_python_code())
-    
-    print("Press 'Enter' to launch the ROS launch file.")
-    input()
 
     # Launch the ROS launch file
     launch_my_launch_file(parameter_value)

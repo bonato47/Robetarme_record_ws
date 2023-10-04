@@ -265,8 +265,8 @@ def bagToCsv(Namefile,task = 0):
         All_data_final["_ftforce_y"]  = interp_2(timeFT,_ftforce.y,time_interp)
         All_data_final["_ftforce_z"]  = interp_2(timeFT,_ftforce.z,time_interp)
         All_data_final["_fttorque_x"] = interp_2(timeFT,_fttorque.x,time_interp)
-        All_data_final["_fttorque_y"] = interp_2(timeFT,_ftforce.y,time_interp)
-        All_data_final["_fttorque_z"] = interp_2(timeFT,_ftforce.z,time_interp)
+        All_data_final["_fttorque_y"] = interp_2(timeFT,_fttorque.y,time_interp)
+        All_data_final["_fttorque_z"] = interp_2(timeFT,_fttorque.z,time_interp)
 
     All_data_final.to_csv("../data/csv/" + Namefile+".csv")
 
