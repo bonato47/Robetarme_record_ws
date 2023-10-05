@@ -123,9 +123,9 @@ RUN source /opt/ros/noetic/setup.bash && catkin_make
 RUN echo "source /home/${USER}/ros_ws/devel/setup.bash" >> ~/.bashrc
 ### Final apt clean
 RUN sudo apt install iputils-ping
-RUN sudo apt update && sudo apt upgrade && sudo apt clean
+RUN sudo apt update && sudo apt upgrade -y && sudo apt clean -y
 
 #use Ros master KUL
 RUN echo "export ROS_IP=128.178.145.217" >> ~/.bashrc
-RUN echo "export ROS_MASTER_URI=http://128.178.145.96:11311" >> ~/.bashrc
+RUN echo "export ROS_MASTER_URI=http://128.178.145.217:11311" >> ~/.bashrc
 
