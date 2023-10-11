@@ -65,6 +65,8 @@ for name in folder:
     plot_torque(data_final,name)
     #print("path plot")
     #plot_path(data_final,name)
+    print("all is plotted")
+
     #mainTransform(bagshot)
 
 #boucle that go inside each folder
