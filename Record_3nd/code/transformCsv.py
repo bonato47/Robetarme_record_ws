@@ -36,6 +36,31 @@ def median_filter_1d(signal, window_size):
 
     return filtered_signal
 
+def replace_outliers_with_previous(data):
+    # Calculate the first and third quartiles (Q1 and Q3)
+    Q1 = np.percentile(data, 25)
+    Q3 = np.percentile(data, 75)
+
+    # Calculate the interquartile range (IQR)
+    IQR = Q3 - Q1
+
+    # Define the lower and upper bounds for outliers
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+
+    # Create a new list to store the data with outliers replaced by previous values
+    modified_data = [data[0]]  # Initialize with the first value
+
+    for i in range(1, len(data)):
+        if (data[i] < lower_bound) or (data[i] > upper_bound):
+            modified_data.append(modified_data[-1])  # Replace outlier with previous value
+        else:
+            modified_data.append(data[i])
+
+    return modified_data
+
+
+
 def calc_angular_velocities(quat, quat_d):
     w = np.zeros((quat.shape[0], 3))
     for i in range(quat.shape[0]):
@@ -298,9 +323,15 @@ def transform_data(dataInitial,Name,Disp,task,target_name,bias_name):
     data_df_T["posx"] = posx 
     data_df_T["posy"] = posy 
     data_df_T["posz"] = posz 
-    data_df_T["posx_filter"] = median_filter_1d(posx, wSize) 
-    data_df_T["posy_filter"] = median_filter_1d(posy, wSize) 
-    data_df_T["posz_filter"] = median_filter_1d(posz, wSize) 
+
+    filtered_data_x = replace_outliers_with_previous(posx)
+    filtered_data_y = replace_outliers_with_previous(posy)
+    filtered_data_z = replace_outliers_with_previous(posz)
+
+
+    data_df_T["posx_filter"] = median_filter_1d(filtered_data_x, wSize) 
+    data_df_T["posy_filter"] = median_filter_1d(filtered_data_y, wSize) 
+    data_df_T["posz_filter"] = median_filter_1d(filtered_data_z, wSize) 
 
 
     data_df_T["eulerx"] = eulerx
