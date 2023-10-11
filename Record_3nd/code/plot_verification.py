@@ -72,7 +72,7 @@ def plot_quaternion(data,namefile) -> None :
 
     # Display the plot
     plt.savefig( namefile + "/Quat")
-
+    plt.close()
 
 def plot_angularVelocity(data,namefile) -> None :
 
@@ -127,6 +127,7 @@ def plot_angularVelocity(data,namefile) -> None :
 
     # Display the plot
     plt.savefig(namefile + "/AngVel")
+    plt.close()
 
 def plot_position(data,namefile) -> None :
 
@@ -176,6 +177,7 @@ def plot_position(data,namefile) -> None :
 
     # Display the plot
     plt.savefig(namefile + "/Position")
+    plt.close()
 
 def plot_euler(data,namefile) -> None :
 
@@ -225,6 +227,7 @@ def plot_euler(data,namefile) -> None :
 
     # Display the plot
     plt.savefig(namefile + "/Euler")
+    plt.close()
 
 
 def plot_force(data,namefile) -> None :
@@ -275,6 +278,7 @@ def plot_force(data,namefile) -> None :
 
     # Display the plot
     plt.savefig(namefile + "/Force")
+    plt.close()
 
 
 def plot_torque(data,namefile) -> None :
@@ -325,6 +329,7 @@ def plot_torque(data,namefile) -> None :
 
     # Display the plot
     plt.savefig(namefile + "/Torque")
+    plt.close()
 
 def plot_path(data,namefile) -> None :
 
@@ -351,6 +356,8 @@ def plot_path(data,namefile) -> None :
 
     # Display the plot
     plt.savefig(namefile + "/Path")
+    plt.close()
+
     # Show the plot
 """def plot_all(data):
     plot_angularVelocity(data)

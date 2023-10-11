@@ -55,19 +55,15 @@ for name in folder:
 
     data_final= transform_data(data,name_short,displacementFromTarget,task,target_csv_name,bias_csv_name)
     print(name_short + " transform is done")
+    plt.close()
 
-    print("plotting ...")
+    print("plotting all plots...")
     plot_quaternion(data_final,name)
     plot_angularVelocity(data_final,name)
     plot_position(data_final,name)
     plot_euler(data_final,name)
     plot_force(data_final,name)
     plot_torque(data_final,name)
-    #print("path plot")
-    #plot_path(data_final,name)
-    #mainTransform(bagshot)
-
-#boucle that go inside each folder
-    #run mainTransform 
-
-#subject1_surf_target2_tria1_bar_03_10_23   subject1_surf_target8_trial1_06_10_23
+    print("path is ploting ...")
+    plot_path(data_final,name)
+    print("All plots are saved")
