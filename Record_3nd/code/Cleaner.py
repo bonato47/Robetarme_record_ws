@@ -67,3 +67,14 @@ for name in folder:
     print("path is ploting ...")
     plot_path(data_final,name)
     print("All plots are saved")
+
+    #print("path plot")
+    #plot_path(data_final,name)
+    print("all is plotted")
+
+    #mainTransform(bagshot)
+
+#boucle that go inside each folder
+    #run mainTransform 
+
+#subject1_surf_target2_tria1_bar_03_10_23   subject1_surf_target8_trial1_06_10_23
